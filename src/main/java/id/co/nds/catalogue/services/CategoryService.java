@@ -15,14 +15,12 @@ import id.co.nds.catalogue.globals.GlobalConstant;
 import id.co.nds.catalogue.models.CategoryModel;
 import id.co.nds.catalogue.repos.CategoryRepo;
 import id.co.nds.catalogue.validators.CategoryValidator;
-import id.co.nds.catalogue.validators.ProductValidator;
 
 @Service
 public class CategoryService implements Serializable {
     @Autowired
     private CategoryRepo categoryRepo;
 
-    ProductValidator productValidator;
     CategoryValidator categoryValidator = new CategoryValidator();
 
     public CategoryEntity add(CategoryModel categoryModel) throws ClientException {
