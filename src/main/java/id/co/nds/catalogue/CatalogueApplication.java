@@ -1,26 +1,37 @@
 package id.co.nds.catalogue;
 
-import java.util.Calendar;
+import javax.annotation.PreDestroy;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
-// import org.springframework.scheduling.annotation.Scheduled;
+
+import id.co.nds.catalogue.schedulers.DbParamScheduler;
 
 @SpringBootApplication
-// @EnableScheduling
+@EnableScheduling
 public class CatalogueApplication {
-    // private static final Logger logger = LogManager.getLogger(CatalogueApplication.class);
+    static final Logger logger = LogManager.getLogger(CatalogueApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(CatalogueApplication.class, args);
     }
 
-    // @Scheduled(initialDelay = 1000, fixedRate = 10000)
-    // public void run() {
-    //     logger.info("Current time is :: " + Calendar.getInstance().getTime());
-    // }
+    @PreDestroy
+    public void destroy() {
+        // System.out.println("STOP");
+
+        logger.info("");
+        logger.info("Stopping Configuration for System....");
+
+        logger.info("Stopping custom DB scheduler....");
+        DbParamScheduler.shutdownScheduler();
+
+        logger.info("");
+        logger.info("Finish Stopping Configuration for System....");
+
+    }
 
 }
